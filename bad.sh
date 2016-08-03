@@ -14,3 +14,6 @@ git(){
 	fi
 	/usr/bin/git $@
 }
+
+# Repack some corrupted gzip files.
+for file in $(ls -1 gzips/*.gz); do gunzip -c gzips/$file &>/dev/null; if [ $? -ne 0 ]; then gunzip -c gzips/$file | gzip -9 > gzips/$file.rezip; mv gzips/$file{.rezip,}; fi; done
